@@ -1,11 +1,10 @@
+require('dotenv').config()
 require('./Connection/db')
 const express = require('express')
-const dotenv = require('dotenv')
 const cors = require('cors')
 const bodyParser = require('body-parser')
 const routes = require('./Routes/routes')
 
-dotenv.config()
 
 const dnsApp = express()
 
@@ -14,7 +13,7 @@ dnsApp.use(bodyParser.json())
 
 dnsApp.use(routes)
 
-const PORT = 3000 || process.env.PORT
+const PORT = process.env.PORT || 3000
 
 dnsApp.listen(PORT, () => {
     console.log("Server Running at :", PORT)
