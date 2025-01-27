@@ -36,13 +36,18 @@ exports.addMenuItem = async (req, res) => {
         const existingItem = await Item.findOne({ menuId: req.params.id, name });
 
         if (existingItem) {
-            return res.status(400).json({ message: 'Item already exists in this menu' });
+            res.status(406).json({ message: 'Item already exists in this menu' });
         }
-        
-        const item = new Item({ menuId: req.params.id, name, description, price })
-        await item.save()
-        res.status(201).json(item)
+        else {
+            const item = new Item({ menuId: req.params.id, name, description, price })
+            await item.save()
+
+            res.status(201).json({ status: 'success', item })
+        }
+
+
     } catch (error) {
         res.status("Error adding item", error)
+        res.status(500).json({ message: "Error adding item", error: error.message })
     }
 }

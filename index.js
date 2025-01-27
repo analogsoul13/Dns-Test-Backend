@@ -2,14 +2,13 @@ require('dotenv').config()
 require('./Connection/db')
 const express = require('express')
 const cors = require('cors')
-const bodyParser = require('body-parser')
 const routes = require('./Routes/routes')
 
 
 const dnsApp = express()
 
 dnsApp.use(cors())
-dnsApp.use(bodyParser.json())
+dnsApp.use(express.json())
 
 dnsApp.use(routes)
 
